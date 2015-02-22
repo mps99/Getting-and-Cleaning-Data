@@ -2,7 +2,7 @@
 
 library("plyr", lib.loc="~/R/win-library/3.1")
 library(knitr)
-knit2html("codebook.Rmd");
+knit2html("Codebook.md");
 
 
 if(!file.exists("getdata_projectfiles_UCI HAR Dataset.zip"))
