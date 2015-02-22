@@ -1,7 +1,22 @@
 ##run_analysis.R file , Getting and Cleaning Data, Project1
 
 library("plyr", lib.loc="~/R/win-library/3.1")
-setwd("C:/Users/Madhavi/Desktop/Coursera/Getting and Cleaning Data")
+library(knitr)
+knit2html("codebook.Rmd");
+
+
+if(!file.exists("getdata_projectfiles_UCI HAR Dataset.zip"))
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(fileUrl,destfile="getdata_projectfiles_UCI HAR Dataset.zip",method="curl")
+
+##Unzip the file
+unzip(zipfile="getdata_projectfiles_UCI HAR Dataset.zip")
+
+##unzipped files are in the folder UCI HAR Dataset. Get the list of the files
+path_rf <- file.path("./" , "UCI HAR Dataset")
+files<-list.files(path_rf, recursive=TRUE)
+files
+
 
 ##1.Merges the training and the test sets to create one data set.
 
@@ -62,4 +77,4 @@ tidydata = aggregate(allData, by=list(activity = allData$activity, subject=allDa
 ## Now, remove the subject and activity column
 tidydata[,90] = NULL
 tidydata[,89] = NULL
-write.table(tidydata, "tidy.txt", row.name = FALSE, sep="\t")
+write.table(tidydata, "tidy.txt", row.name=FALSE, sep="\t")
